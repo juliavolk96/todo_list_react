@@ -16,6 +16,6 @@ Delete Tasks: Remove tasks from the list by clicking the delete button.
 
 Persistent Storage: All tasks are saved in the browser's localStorage for persistent data storage.
 
-## You can see the priject
+## You can see the project
 
 https://juliavolk96.github.io/todo_list_react/
