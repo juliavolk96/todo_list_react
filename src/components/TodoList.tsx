@@ -1,14 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Form from './Form';
 import { Task } from './types';
 import pencilIcon from '../images/pencil.png';
 import trashbinIcon from '../images/trashbin.png';
-
-/**
- * Renders a to-do list.
- * @function
- * @param {TodoListProps} props - Props for the TodoList component.
- */
 
 interface TodoListProps {
   tasks: Task[];
@@ -23,57 +17,32 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, addTask, updateTask, toggleT
   const [editingText, setEditingText] = useState<string>('');
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  /**
-   * Starts editing a task.
-   * @param {Task} task - The task to edit.
-   */
-
-  const startEditing = (task: Task) => {
+  const startEditing = useCallback((task: Task) => {
     setEditingTaskId(task.id);
     setEditingText(task.text);
-  };
+  }, []);
 
-  /**
-   * Handles input change during editing.
-   * @param {React.ChangeEvent<HTMLInputElement>} e - The input change event.
-   */
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setEditingText(e.target.value);
-  };
+  }, []);
 
-  /**
-   * Saves the edited task.
-   * @param {number} taskId - The ID of the task being edited.
-   */
-
-  const saveEdit = (taskId: number) => {
+  const saveEdit = useCallback((taskId: number) => {
     if (isSaving) return;
     setIsSaving(true);
     updateTask(taskId, editingText);
     setEditingTaskId(null);
     setIsSaving(false);
-  };
+  }, [editingText, isSaving, updateTask]);
 
-  /**
-   * Handles key down events during editing.
-   * @param {React.KeyboardEvent<HTMLInputElement>} e - The key down event.
-   * @param {number} taskId - The ID of the task being edited.
-   */
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, taskId: number) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>, taskId: number) => {
     if (e.key === 'Enter') {
       saveEdit(taskId);
     }
-  };
+  }, [saveEdit]);
 
-  /**
-   * Handles blur event during editing.
-   * @param {number} taskId - The ID of the task being edited.
-   */
-  
-  const handleBlur = (taskId: number) => {
+  const handleBlur = useCallback((taskId: number) => {
     saveEdit(taskId);
-  };
+  }, [saveEdit]);
 
   return (
     <section className="todo">

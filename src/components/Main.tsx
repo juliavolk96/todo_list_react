@@ -2,12 +2,6 @@ import React from 'react';
 import TodoList from './TodoList';
 import { Task } from './types';
 
-/**
- * Renders the main content of the application.
- * @function
- * @param {MainProps} props - Props for the Main component.
- */
-
 interface MainProps {
   tasks: Task[];
   addTask: (text: string) => void;

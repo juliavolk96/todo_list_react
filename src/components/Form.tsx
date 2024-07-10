@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
 
-/**
- * Renders a form for adding new tasks.
- * @function
- * @param {FormProps} props - Props for the Form component.
- */
-
 interface FormProps {
   addTask: (text: string) => void;
 }
 
 const Form: React.FC<FormProps> = ({ addTask }) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState<string>('');
 
-  /**
-   * Handles form submission.
-   * @param {React.FormEvent} e - The form submission event.
-   */
-  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
